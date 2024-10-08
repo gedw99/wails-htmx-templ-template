@@ -60,19 +60,39 @@ bin:
 	mkdir -p $(BIN_ROOT)
 	@echo $(BIN_NAME) >> .gitignore
 
-	#bun install
-	#cd frontend && bun install
+	bun install
+	cd frontend && bun install
 
 	go build -o $(BIN_ROOT)/$(NAME) .
+
+run:
+	cd frontend && bun run dev
 
 wails-h:
 	$(WAILS_BIN_NAME) --help
 	$(WAILS_BIN_NAME) doctor
 wails-init:
-	$(WAILS_BIN_NAME) init
+	#$(WAILS_BIN_NAME) init
 wails-gen:
 	$(WAILS_BIN_NAME) generate
+
+wails-dev-h:
+	$(WAILS_BIN_NAME) dev --help
 wails-dev:
 	$(WAILS_BIN_NAME) dev
+
+wails-build-h:
+	$(WAILS_BIN_NAME) build --help
 wails-build:
-	$(WAILS_BIN_NAME) build
+	# todo: sniff OS and pick commands...
+	# darwin
+	$(WAILS_BIN_NAME) build --clean
+	$(WAILS_BIN_NAME) build --clean --platform darwin/arm64
+	$(WAILS_BIN_NAME) build --clean --platform darwin
+	$(WAILS_BIN_NAME) build --clean --platform darwin/universal
+	# windows
+	$(WAILS_BIN_NAME) build --clean --platform windows/amd64
+	$(WAILS_BIN_NAME) build --clean --platform windows/arm64
+
+
+	
