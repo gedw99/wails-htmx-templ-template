@@ -1,8 +1,8 @@
 package main
 
 import (
-	"changeme/components"
 	"context"
+	"main/components"
 
 	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"

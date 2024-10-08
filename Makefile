@@ -51,7 +51,8 @@ dep:
 	mv $(GOPATH)/bin/templ $(DEP_ROOT)
 
 gen:
-	$(TEMPL_BIN_NAME) generate -h
+	$(TEMPL_BIN_NAME) generate
+	cd components && $(TEMPL_BIN_NAME) generate
 
 
 bin:
@@ -59,10 +60,18 @@ bin:
 	mkdir -p $(BIN_ROOT)
 	@echo $(BIN_NAME) >> .gitignore
 
-	cd frontend && bun install
+	#bun install
+	#cd frontend && bun install
 
 	go build -o $(BIN_ROOT)/$(NAME) .
 
+wails-h:
+	$(WAILS_BIN_NAME) --help
+	$(WAILS_BIN_NAME) doctor
+wails-init:
+	$(WAILS_BIN_NAME) init
+wails-gen:
+	$(WAILS_BIN_NAME) generate
 wails-dev:
 	$(WAILS_BIN_NAME) dev
 wails-build:
