@@ -6,9 +6,11 @@ DEP_ROOT=$(PWD)/$(DEP_NAME)
 WAILS_BIN_NAME=wails
 WAILS_BIN_WHICH=$(shell command -v $(WAILS_BIN_NAME))
 
-
 TEMPL_BIN_NAME=templ
 TEMPL_BIN_WHICH=$(shell command -v $(TEMPL_BIN_NAME))
+
+BUN_BIN_NAME=bun
+BUN_BIN_WHICH=$(shell command -v $(BUN_BIN_NAME))
 
 NAME=htmx-wails
 
@@ -22,6 +24,10 @@ print:
 	@echo ""
 	@echo "TEMPL_BIN_NAME:    $(TEMPL_BIN_NAME)"
 	@echo "TEMPL_BIN_WHICH:   $(TEMPL_BIN_WHICH)"
+
+	@echo ""
+	@echo "BUN_BIN_NAME:      $(BUN_BIN_NAME)"
+	@echo "BUN_BIN_WHICH:     $(BUN_BIN_WHICH)"
 
 mod-init:
 	#go mod init main
