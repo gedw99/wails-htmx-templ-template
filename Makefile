@@ -55,11 +55,11 @@ gen:
 
 
 bin:
-	rm -rf $(DEP_ROOT)
-	mkdir -p $(DEP_ROOT)
-	@echo $(DEP_NAME) >> .gitignore
+	rm -rf $(BIN_ROOT)
+	mkdir -p $(BIN_ROOT)
+	@echo $(BIN_NAME) >> .gitignore
 
-	
+	cd frontend && bun install
 
 	go build -o $(BIN_ROOT)/$(NAME) .
 
