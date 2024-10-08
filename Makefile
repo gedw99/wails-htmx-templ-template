@@ -29,6 +29,8 @@ print:
 	@echo "BUN_BIN_NAME:      $(BUN_BIN_NAME)"
 	@echo "BUN_BIN_WHICH:     $(BUN_BIN_WHICH)"
 
+### mod
+
 mod-init:
 	#go mod init main
 mod-tidy:
@@ -38,9 +40,12 @@ mod-up: mod-tidy
 	go-mod-upgrade
 	$(MAKE) mod-tidy
 
+### dep
 
-dep: 
+dep-del:
 	rm -rf $(DEP_ROOT)
+dep: dep-del
+	
 	mkdir -p $(DEP_ROOT)
 	@echo $(DEP_NAME) >> .gitignore
 
@@ -50,13 +55,16 @@ dep:
 	go install github.com/a-h/templ/cmd/templ@latest
 	mv $(GOPATH)/bin/templ $(DEP_ROOT)
 
+### gen
+
 gen:
 	$(TEMPL_BIN_NAME) generate
 	cd components && $(TEMPL_BIN_NAME) generate
 
-
-bin:
+### bin 
+bin-del:
 	rm -rf $(BIN_ROOT)
+bin: bin-del
 	mkdir -p $(BIN_ROOT)
 	@echo $(BIN_NAME) >> .gitignore
 
@@ -65,8 +73,15 @@ bin:
 
 	go build -o $(BIN_ROOT)/$(NAME) .
 
+### run 
+
 run:
+	# todo: run the binary. still cant build the binary :)
+
 	cd frontend && bun run dev
+
+
+### wails stuff
 
 wails-h:
 	$(WAILS_BIN_NAME) --help
