@@ -1,3 +1,8 @@
+# This wil not install anything onto your laptop.
+# it all goes into .dep and .bin. so it will not pollute your system,
+
+# TODO: Change to Task file so it wokrs easily on all Desktops. 
+
 BIN_NAME=.bin
 BIN_ROOT=$(PWD)/$(BIN_NAME)
 DEP_NAME=.dep
@@ -16,7 +21,9 @@ NAME=htmx-wails
 
 export PATH:=$(BIN_ROOT):$(DEP_ROOT):$(PATH)
 
-print:
+all: dep dep-print bin 
+
+dep-print:
 	@echo ""
 	@echo "WAILS_BIN_NAME:    $(WAILS_BIN_NAME)"
 	@echo "WAILS_BIN_WHICH:   $(WAILS_BIN_WHICH)"
@@ -32,6 +39,8 @@ print:
 ### mod
 
 mod-init:
+	# had to do this initially....
+	# also change the app.templ.go to use the component...
 	#go mod init main
 mod-tidy:
 	go mod tidy

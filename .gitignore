@@ -40,3 +40,5 @@ go.work
 .bin
 .bin
 .bin
+.dep
+.bin
