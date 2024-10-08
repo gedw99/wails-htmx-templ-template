@@ -146,31 +146,44 @@ wails-build:
 	# todo: sniff OS and pick commands...
 	# https://wails.io/docs/gettingstarted/building
 
+ifeq ($(BASE_OS_NAME),darwin)
+	$(MAKE) wails-build-darwin
+endif
 ifeq ($(BASE_OS_NAME),windows)
-	# windows
-	cd $(WAILS_PROJ_NAME) && $(WAILS_BIN_NAME) build --clean --platform windows/amd64
-	cd $(WAILS_PROJ_NAME) && $(WAILS_BIN_NAME) build --clean --platform windows/arm64
+	$(MAKE) wails-build-windows
 endif
 
-ifeq ($(BASE_OS_NAME),darwin)
-	# darwin
+
+wails-build-darwin:
+# darwin
 	cd $(WAILS_PROJ_NAME) && $(WAILS_BIN_NAME) build --clean
 	#cd $(WAILS_PROJ_NAME) && $(WAILS_BIN_NAME) build --clean --platform darwin/arm64
 	#cd $(WAILS_PROJ_NAME) && $(WAILS_BIN_NAME) build --clean --platform darwin
 	cd $(WAILS_PROJ_NAME) && $(WAILS_BIN_NAME) build --clean --platform darwin/universal
-endif
+
+wails-build-windows:
+	# windows
+	cd $(WAILS_PROJ_NAME) && $(WAILS_BIN_NAME) build --clean --platform windows/amd64
+	cd $(WAILS_PROJ_NAME) && $(WAILS_BIN_NAME) build --clean --platform windows/arm64
+
 
 	
 
 wails-run:
 	# switch based on os
-ifeq ($(BASE_OS_NAME),windows)
-	cd $(WAILS_PROJ_NAME)/build/bin && open $(WAILS_PROJ_NAME).exe
-endif
 
 ifeq ($(BASE_OS_NAME),darwin)
-	cd $(WAILS_PROJ_NAME)/build/bin && open $(WAILS_PROJ_NAME).app
+	$(MAKE) wails-run-darwin
 endif
+ifeq ($(BASE_OS_NAME),windows)
+	$(MAKE) wails-run-windows
+endif
+
+wails-run-darwin:
+	cd $(WAILS_PROJ_NAME)/build/bin && open $(WAILS_PROJ_NAME).app
+wails-run-windows:
+	cd $(WAILS_PROJ_NAME)/build/bin && open $(WAILS_PROJ_NAME).exe
+
 	
 
 
